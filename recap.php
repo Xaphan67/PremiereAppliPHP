@@ -15,6 +15,20 @@ session_start();
 <body>
     <div class="container">
         <div class="row">
+            <!-- Génère une alerte en fonction du message retourné par traitement.php -->
+            <?php if (isset($_SESSION['message'])) {
+                if ($_SESSION['message'][0] == "productDeleted") {
+                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Le produit à été supprimé.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+                }
+            }
+
+            // Supprime le message après avoir affiché l'alert.
+            unset($_SESSION['message']);
+            ?>
+
             <nav class="col-sm-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">

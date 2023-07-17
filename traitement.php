@@ -34,6 +34,7 @@ if (isset($_GET['action'])) { // Vérifié que action n'est pas null
         case "delete-id": // Si l'action est 'delete-id' (Suppression d'un produit spécifique)
             if (isset($_GET['id']) && isset($_SESSION['products'][$_GET['id']])) // Vérifie que l'id du produit existe dans l'url, et que le produit existe
             {
+                $_SESSION['message'][0] = "productDeleted";
                 unset($_SESSION['products'][$_GET['id']]);
             }
             header("Location:recap.php");
