@@ -71,7 +71,8 @@ if (isset($_GET['action'])) { // Vérifié que action n'est pas null
             if (isset($_GET['id']) && isset($_SESSION['products'][$_GET['id']])) // Vérifie que l'id du produit existe dans l'url, et que le produit existe
             {
                 $_SESSION['message'][0] = "productDeleted";
-                unset($_SESSION['products'][$_GET['id']]);
+                unlink("./upload/" . $_SESSION['products'][$_GET['id']]['file']); // Supprime l'image correspondant au produit
+                unset($_SESSION['products'][$_GET['id']]); // Supprime les informations du produit de la session
             }
             header("Location:recap.php");
             exit();
@@ -80,6 +81,9 @@ if (isset($_GET['action'])) { // Vérifié que action n'est pas null
         case "delete": // Si l'action est 'delete' (Supression de tous les produits)
             if (isset($_SESSION['products'])) // Vérifie que les produits existent en session
             {
+                foreach ($_SESSION['products'] as $product) {
+                    unlink("./upload/" . $product['file']);
+                }
                 unset($_SESSION['products']);
             }
             header("Location:recap.php");
