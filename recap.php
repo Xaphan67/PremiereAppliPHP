@@ -13,9 +13,9 @@ session_start();
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
-            <nav class="col-sm-2">
+            <nav class="col-sm-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link" href="index.php">Ajouter un produit</a>
@@ -33,7 +33,7 @@ session_start();
                     </li>
                 </ul>
             </nav>
-            <article class="col-sm-6">
+            <article class="col-sm-9">
                 <h1>Récapitulatif</h1>
                 <?php
                 if (!isset($_SESSION['products']) || empty($_SESSION['products'])) { // Si la clé products n'existe pas en session ou qu'elle existe mais est vide...

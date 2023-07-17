@@ -23,6 +23,9 @@ if (isset($_GET['action'])) { // Vérifié que action n'est pas null
                     ];
 
                     $_SESSION['products'][] = $product;
+                    $_SESSION['message'][0] = "productAdded";
+                } else {
+                    $_SESSION['message'][0] = "productError";
                 }
             }
             break;

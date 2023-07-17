@@ -8,14 +8,35 @@ session_start();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-
     <title>Ajout produit</title>
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
-            <nav class="col-sm-2">
+
+            <!-- Génère une alerte en fonction du message retourné par traitement.php -->
+            <?php if (isset($_SESSION['message'])) {
+                $type = "info";
+                $message = "";
+                if ($_SESSION['message'][0] == "productAdded") {
+                    $type = "success";
+                    $message = "Le produit à été ajouté.";
+                } else if ($_SESSION['message'][0] == "productError") {
+                    $type = "danger";
+                    $message = "Une erreur est survenue.";
+                }
+                echo '<div class="alert alert-' . $type . ' alert-dismissible fade show" role="alert">' .
+                    $message .
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+            }
+
+            // Supprime le message après avoir affiché l'alert.
+            unset($_SESSION['message']);
+            ?>
+
+            <nav class="col-sm-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link active" href="#">Ajouter un produit</a>
@@ -33,7 +54,7 @@ session_start();
                     </li>
                 </ul>
             </nav>
-            <article class="col-sm-6">
+            <article class="col-sm-9">
                 <h1>Ajouter un produit</h1>
                 <form action="traitement.php?action=add" method="post">
                     <div class="form-group row">
@@ -58,7 +79,11 @@ session_start();
                 </form>
             </article>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+    <script>
+        $(".alert").alert('close')
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
