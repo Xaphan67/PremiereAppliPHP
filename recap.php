@@ -15,6 +15,7 @@ ob_start();
                 <tr>
                     <th>#</th>
                     <th>Nom</th>
+                    <th>Image</th>
                     <th>Prix</th>
                     <th>Quantité</th>
                     <th>Total</th>
@@ -27,8 +28,9 @@ ob_start();
             $result = "
             <tr>
                 <td>" . $index . "</td>
-                <td>" . $product["name"] . "</td>
-                <td>" . number_format($product["price"], 2, ",", "&nbsp;") . "&nbsp;€</td>
+                <td>" . $product["name"] . '</td>
+                <td><img src="./upload/' . $product["file"] . '" width = 50px" </td>
+                <td>' . number_format($product["price"], 2, ",", "&nbsp;") . "&nbsp;€</td>
                 <td>";
 
             $btn = '<a href="traitement.php?action=qttDown&id=' . $index . '"><button type="button" class="btn btn-primary btn-sm">-</button></a>';
@@ -54,7 +56,7 @@ ob_start();
         }
         echo "
             <tr>
-                <td colspan=4>Total général : </td>
+                <td colspan=5>Total général : </td>
                 <td><strong>" . number_format($totalGeneral, 2, ",", "&nbsp;") . '&nbsp;€</strong></td>
                 <td>
                 <a href="traitement.php?action=delete">

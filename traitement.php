@@ -14,6 +14,7 @@ if (isset($_GET['action'])) { // Vérifié que action n'est pas null
                 $qtt = filter_input(INPUT_POST, "qtt", FILTER_VALIDATE_INT);
 
                 // Stocke les information du fichier envoyé
+                $file = "";
                 if (isset($_FILES['file']) && !$error) {
                     $tmpName = $_FILES['file']['tmp_name'];
                     $filename = $_FILES['file']['name'];
@@ -47,10 +48,11 @@ if (isset($_GET['action'])) { // Vérifié que action n'est pas null
                     }
                 }
 
-                if ($name && $price && $qtt) // Vérifie que les variables ne sont pas égales a null ou false
+                if ($name && $price && $qtt && $file) // Vérifie que les variables ne sont pas égales a null ou false
                 {
                     $product = [ // Crée un produit avec les informations
                         "name" => $name,
+                        "file" => $file,
                         "price" => $price,
                         "qtt" => $qtt,
                         "total" => $price * $qtt
