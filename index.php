@@ -35,7 +35,7 @@ session_start();
             </nav>
             <article class="col-sm-6">
                 <h1>Ajouter un produit</h1>
-                <form action="traitement.php" method="post">
+                <form action="traitement.php?action=add" method="post">
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label col-form-label" for="name">Nom du produit :</label>
                         <div class="col-sm-4">
