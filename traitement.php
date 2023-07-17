@@ -53,6 +53,7 @@ if (isset($_GET['action'])) { // Vérifié que action n'est pas null
             if (isset($_GET['id']) && isset($_SESSION['products'][$_GET['id']])) // Vérifie que l'id du produit existe dans l'url, et que le produit existe
             {
                 $_SESSION['products'][$_GET['id']]["qtt"]++;
+                $_SESSION['products'][$_GET['id']]["total"] += $_SESSION['products'][$_GET['id']]["price"];
             }
             header("Location:recap.php");
             exit();
@@ -64,6 +65,7 @@ if (isset($_GET['action'])) { // Vérifié que action n'est pas null
                 if ($_SESSION['products'][$_GET['id']]["qtt"] > 1) // Vérifie qu'il y ai au moins un produit restant après la suppression
                 {
                     $_SESSION['products'][$_GET['id']]["qtt"]--;
+                    $_SESSION['products'][$_GET['id']]["total"] -= $_SESSION['products'][$_GET['id']]["price"];
                 }
             }
             header("Location:recap.php");
