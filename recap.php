@@ -54,13 +54,20 @@ session_start();
                             <tbody>';
                     $totalGeneral = 0;
                     foreach ($_SESSION['products'] as $index => $product) {
-                        echo "
+                        $result = "
                             <tr>
                                 <td>" . $index . "</td>
                                 <td>" . $product["name"] . "</td>
                                 <td>" . number_format($product["price"], 2, ",", "&nbsp;") . "&nbsp;€</td>
-                                <td>" . $product["qtt"] . "</td>
-                                <td>" . number_format($product["total"], 2, ",", "&nbsp;") . '&nbsp;€</td>
+                                <td>";
+
+                        $btn = '<a href="traitement.php?action=qttDown&id=' . $index . '"><button type="button" class="btn btn-primary btn-sm">-</button></a>';
+                        if ($product["qtt"] <= 1) {
+                            $btn = '<button type="button" class="btn btn-secondary btn-sm">-</button>';
+                        }
+
+                        $result .= $btn . " " . $product["qtt"] . ' <a href="traitement.php?action=qttUp&id=' . $index . '"><button type="button" class="btn btn-primary btn-sm">+</button></a></td>
+                                <td>' . number_format($product["total"], 2, ",", "&nbsp;") . '&nbsp;€</td>
                                 <td>
                                     <form action="traitement.php?action=delete-id&id=' . $index . '" method="post">
                                         <button type="submit" class="btn btn-danger" name="submit">
@@ -73,6 +80,7 @@ session_start();
                                 </td>
                             </tr>';
                         $totalGeneral += $product["total"];
+                        echo $result;
                     }
                     echo "
                                 <tr>
