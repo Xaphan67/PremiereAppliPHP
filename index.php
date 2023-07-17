@@ -5,7 +5,7 @@ ob_start();
 
 <article class="col-sm-9">
     <h1>Ajouter un produit</h1>
-    <form action="traitement.php?action=add" method="post">
+    <form action="traitement.php?action=add" method="post" enctype="multipart/form-data">
         <div class="form-group row">
             <label class="col-sm-3 col-form-label col-form-label" for="name">Nom du produit :</label>
             <div class="col-sm-4">
@@ -24,6 +24,13 @@ ob_start();
                 <input type="number" class="form-control" name="qtt" id="qtt" value="1">
             </div>
         </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label col-form-label" for="file">Image :</label>
+            <div class="col-sm-4">
+                <input type="file" class="form-control" name="file" id="file">
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-primary" name="submit">Ajouter le produit</button>
     </form>
 </article>

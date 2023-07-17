@@ -15,15 +15,31 @@
             <?php if (isset($_SESSION['message'])) {
                 $type = "info";
                 $message = "";
-                if ($_SESSION['message'][0] == "productAdded") {
-                    $type = "success";
-                    $message = "Le produit à été ajouté.";
-                } else if ($_SESSION['message'][0] == "productDeleted") {
-                    $type = "success";
-                    $message = "Le produit à été supprimé.";
-                } else if ($_SESSION['message'][0] == "productError") {
-                    $type = "danger";
-                    $message = "Une erreur est survenue.";
+                switch ($_SESSION['message'][0]) {
+                    case "productAdded":
+                        $type = "success";
+                        $message = "Le produit à été ajouté.";
+                        break;
+                    case "productDeleted":
+                        $type = "success";
+                        $message = "Le produit à été supprimé.";
+                        break;
+                    case "productError":
+                        $type = "danger";
+                        $message = "Certains champs sont vides ou invalides.";
+                        break;
+                    case "productExtError":
+                        $type = "danger";
+                        $message = "L'extension du fichier n'est pas valide ou aucun fichier n'a été choisi.";
+                        break;
+                    case "productSizeError":
+                        $type = "danger";
+                        $message = "La taille du fichier est trop grande.";
+                        break;
+                    case "productFileError":
+                        $type = "danger";
+                        $message = "Une erreur est survenue pendant l'upload du fichier.";
+                        break;
                 }
                 echo '<div class="alert alert-' . $type . ' alert-dismissible fade show" role="alert">' .
                     $message .

@@ -13,9 +13,43 @@ if (isset($_GET['action'])) { // Vérifié que action n'est pas null
                 $price = filter_input(INPUT_POST, "price", FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
                 $qtt = filter_input(INPUT_POST, "qtt", FILTER_VALIDATE_INT);
 
+                // Stocke les information du fichier envoyé
+                if (isset($_FILES['file']) && !$error) {
+                    $tmpName = $_FILES['file']['tmp_name'];
+                    $filename = $_FILES['file']['name'];
+                    $size = $_FILES['file']['size'];
+                    $error = $_FILES['file']['error'];
+
+                    $tabExtension = explode('.', $filename); // Sépare le nom du fichier et son extension
+                    $extension = strtolower(end($tabExtension)); // Stock l'extension
+
+                    //Tableau des extensions acceptées
+                    $extensions = ['jpg', 'png', 'jpeg', 'gif'];
+
+                    // Taille maximale acceptée (en bytes)
+                    $maxSize = 400000;
+
+                    // Vérifie que l'extension et la taille sont accepté
+                    if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
+                        $uniqueName = uniqid('', true);
+                        $file = $uniqueName . "." . $extension;
+                        move_uploaded_file($tmpName, './upload/' . $file); // Upload le fichier dans le dossier upload
+                    } else { // Génère un message d'erreur en fonction de l'erreur rencontrée
+                        if (!in_array($extension, $extensions)) {
+                            $_SESSION['message'][0] = "productExtError";
+                        } else if ($size >= $maxSiz) {
+                            $_SESSION['message'][0] = "productSizeError";
+                        } else if ($error != 0) {
+                            $_SESSION['message'][0] = "productFileError";
+                        }
+                        header("Location:index.php");
+                        exit();
+                    }
+                }
+
                 if ($name && $price && $qtt) // Vérifie que les variables ne sont pas égales a null ou false
                 {
-                    $product = [
+                    $product = [ // Crée un produit avec les informations
                         "name" => $name,
                         "price" => $price,
                         "qtt" => $qtt,
