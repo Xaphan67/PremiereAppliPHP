@@ -29,11 +29,21 @@ if (isset($_GET['action'])) { // Vérifié que action n'est pas null
 
 
         case "delete-id": // Si l'action est 'delete-id' (Suppression d'un produit spécifique)
-            unset($_SESSION['products'][$_GET['id']]);
+            if (isset($_GET['id']) && isset($_SESSION['products'][$_GET['id']])) // Vérifie que l'id du produit existe dans l'url, et que le produit existe
+            {
+                unset($_SESSION['products'][$_GET['id']]);
+            }
+            header("Location:recap.php");
+            exit();
             break;
 
         case "delete": // Si l'action est 'delete' (Supression de tous les produits)
-            unset($_SESSION['products']);
+            if (isset($_SESSION['products'])) // Vérifie que les produits existent en session
+            {
+                unset($_SESSION['products']);
+            }
+            header("Location:recap.php");
+            exit();
             break;
 
         case "qttUp": // Si l'action est 'qttUp" (Augmenter la quantité)
